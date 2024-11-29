@@ -1,27 +1,36 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿<div class="top-row navbar navbar-dark bg-primary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">WeatherApp</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+        <!-- Navbar Brand -->
+        <a class="navbar-brand" href="#">WeatherApp</a>
+
+        <!-- Navbar Toggler (for mobile view) -->
+        <button title="Navigation menu" class="navbar-toggler" type="button" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
 </div>
 
-<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
+<!-- Navigation Menu -->
+<div class="@NavMenuCssClass nav-scrollable bg-light">
+    <nav class="nav flex-column">
+        <!-- Home Link -->
+        <div class="nav-item">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+                <span class="bi bi-house-door-fill" aria-hidden="true"></span> Home
             </NavLink>
         </div>
-        <div class="nav-item px-3">
+
+        <!-- Forecast Link -->
+        <div class="nav-item">
             <NavLink class="nav-link" href="forecast">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> 3 Day Forecast
+                <span class="bi bi-calendar-week" aria-hidden="true"></span> 3 Day Forecast
             </NavLink>
         </div>
-        <div class="nav-item px-3">
+
+        <!-- Weather Link -->
+        <div class="nav-item">
             <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Current Weather
+                <span class="bi bi-cloud-sun" aria-hidden="true"></span> Current Weather
             </NavLink>
         </div>
     </nav>
@@ -37,3 +46,4 @@
         collapseNavMenu = !collapseNavMenu;
     }
 }
+
