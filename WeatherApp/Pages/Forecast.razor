@@ -1,0 +1,67 @@
+﻿@page "/forecast"
+@inject WeatherService WeatherService
+
+<h3>Weather Forecast</h3>
+
+<div>
+    <label for="city"></label>
+    <input id="city" @bind="city" placeholder="Enter city name" />
+    <button @onclick="GetForecast">Get Forecast</button>
+</div>
+
+@if (forecastResponse == null || forecastResponse.Location == null)
+{
+    <p>@(string.IsNullOrWhiteSpace(city) 
+        ? "Please enter a city and search." 
+        : "Unable to fetch forecast. Please check the city name and try again.")</p>
+}
+else
+{
+    <div>
+        <h4>Forecast for @forecastResponse.Location.Name, @forecastResponse.Location.Country</h4>
+        <div>
+            @foreach (var forecastDay in forecastResponse.Forecast.Forecastday)
+            {
+                <div class="forecast-day">
+                    <h5>@forecastDay.Date</h5>
+                    <p>Max Temp: @forecastDay.Day.Maxtemp_c °C</p>
+                    <p>Min Temp: @forecastDay.Day.Mintemp_c °C</p>
+                    <p>Avg Temp: @forecastDay.Day.Avgtemp_c °C</p>
+                    <p>Max Wind: @forecastDay.Day.Maxwind_kph kph</p>
+                    <p>Humidity: @forecastDay.Day.Avghumidity %</p>
+                    <p>Total Precipitation: @forecastDay.Day.Totalprecip_mm mm</p>
+                    <p>Chance of Rain: @forecastDay.Day.Daily_chance_of_rain %</p>
+                    <p>Will it rain? @(forecastDay.Day.Daily_will_it_rain != 0 ? "Yes" : "No")</p>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+@code {
+    private string city;
+    private ForecastResponse forecastResponse;
+
+    private async Task GetForecast()
+    {
+        // Clear previous forecast to handle cases like invalid cities
+        forecastResponse = null;
+
+        if (!string.IsNullOrWhiteSpace(city))
+        {
+            try
+            {
+                forecastResponse = await WeatherService.GetForecastAsync(city);
+            }
+            catch
+            {
+                // Handle any errors silently (e.g., network issues) 
+                forecastResponse = null;
+            }
+        }
+    }
+}
+
+
+
+

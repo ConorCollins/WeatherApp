@@ -1,0 +1,16 @@
+﻿# .NET Core
+bin/
+obj/
+wwwroot/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+vssession/
+.vs/
+
+
+# ASP.NET
+appsettings.json
+appsettings.Development.json
+secret.json
