@@ -8,22 +8,31 @@
         <input @bind="city" class="form-control" placeholder="Enter city name" />
         <button class="btn btn-primary" @onclick="GetWeather">Get Weather</button>
     </div>
+    <br /><br />
 
     @if (weatherResponse != null)
     {
-        <div class="card mt-4">
-            <div class="card-body">
-                <h4 class="card-title">Weather in @weatherResponse.Location.Name, @weatherResponse.Location.Country</h4>
-                <hr />
-                <p><strong>Current Temperature:</strong> @weatherResponse.Current.temp_c °C</p>
-                <p><strong>Feels Like:</strong> @weatherResponse.Current.feelslike_c °C</p>
-                <p><strong>Humidity:</strong> @weatherResponse.Current.humidity %</p>
-                <p><strong>Wind:</strong> @weatherResponse.Current.wind_kph kph</p>
-                <p><strong>Wind Chill:</strong> @weatherResponse.Current.windchill_c °C</p>
-                <p><strong>Cloud Coverage:</strong> @weatherResponse.Current.cloud %</p>
-                <p><strong>UV Index:</strong> @weatherResponse.Current.uv</p>
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="card" style="width: 25rem;">
+                <div class="card-body bg-warning text-dark">
+                    <h4 class="card-title border-bottom text-center mb-3">
+                        <strong>Weather in @weatherResponse.Location.Name, @weatherResponse.Location.Country</strong>
+                    </h4>
+                    <div class="text-center">
+                        <!-- Center-align all content -->
+                        <p class="mb-2"><strong>Current Temperature:</strong> @weatherResponse.Current.temp_c °C</p>
+                        <p class="mb-2"><strong>Feels Like:</strong> @weatherResponse.Current.feelslike_c °C</p>
+                        <p class="mb-2"><strong>Humidity:</strong> @weatherResponse.Current.humidity %</p>
+                        <p class="mb-2"><strong>Wind:</strong> @weatherResponse.Current.wind_kph kph</p>
+                        <p class="mb-2"><strong>Wind Chill:</strong> @weatherResponse.Current.windchill_c °C</p>
+                        <p class="mb-2"><strong>Cloud Coverage:</strong> @weatherResponse.Current.cloud %</p>
+                        <p class="mb-2"><strong>UV Index:</strong> @weatherResponse.Current.uv</p>
+                    </div>
+                </div>
             </div>
         </div>
+
+
     }
     else if (!string.IsNullOrWhiteSpace(errorMessage))
     {

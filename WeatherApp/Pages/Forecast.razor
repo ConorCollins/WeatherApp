@@ -1,4 +1,5 @@
 ﻿@page "/forecast"
+@using System.Linq
 @inject WeatherService WeatherService
 
 <h3 class="my-4 text-center">Weather Forecast</h3>
@@ -9,32 +10,38 @@
         <button class="btn btn-primary" @onclick="GetForecast">Get Weather</button>
     </div>
 
-    @if (forecastResponse != null)
-    {
+    @if (forecastResponse?.Location != null && forecastResponse.Forecast?.Forecastday != null && forecastResponse.Forecast.Forecastday.Any())
+{
         <div>
-            <h4 class="mt-4 text-center">Forecast for @forecastResponse.Location.Name, @forecastResponse.Location.Country</h4>
-            <div class="row">
+            <br />
+            <h4 class="mt-4 text-center">
+                <strong>Forecast for @forecastResponse.Location.Name, @forecastResponse.Location.Country</strong>
+            </h4>
+            <br /><br />
+            <div class="row gx-4 gy-4">
                 @foreach (var forecastDay in forecastResponse.Forecast.Forecastday)
                 {
-                    <div class="col-md-4 mb-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">@forecastDay.Date</h5>
-                                <p class="card-text">Max Temp: @forecastDay.Day.Maxtemp_c °C</p>
-                                <p class="card-text">Min Temp: @forecastDay.Day.Mintemp_c °C</p>
-                                <p class="card-text">Avg Temp: @forecastDay.Day.Avgtemp_c °C</p>
-                                <p class="card-text">Max Wind: @forecastDay.Day.Maxwind_kph kph</p>
-                                <p class="card-text">Humidity: @forecastDay.Day.Avghumidity %</p>
-                                <p class="card-text">Total Precipitation: @forecastDay.Day.Totalprecip_mm mm</p>
-                                <p class="card-text">Chance of Rain: @forecastDay.Day.Daily_chance_of_rain %</p>
-                                <p class="card-text">Will it rain? @(forecastDay.Day.Daily_will_it_rain != 0 ? "Yes" : "No")</p>
+                    <div class="col-md-4 d-flex justify-content-center">
+                        <div class="card" style="width: 25rem;">
+                            <div class="card-body bg-warning text-dark">
+                                <h5 class="card-title text-center border-bottom"><strong>@forecastDay.Date</strong></h5>
+                                <div class="text-center">
+                                    <p class="card-text"><strong>Max Temp: </strong>@forecastDay.Day?.Maxtemp_c°C</p>
+                                    <p class="card-text"><strong>Min Temp: </strong>@forecastDay.Day?.Mintemp_c°C</p>
+                                    <p class="card-text"><strong>Avg Temp: </strong>@forecastDay.Day?.Avgtemp_c°C</p>
+                                    <p class="card-text"><strong>Max Wind: </strong>@forecastDay.Day?.Maxwind_kph kph</p>
+                                    <p class="card-text"><strong>Humidity: </strong>@forecastDay.Day?.Avghumidity%</p>
+                                    <p class="card-text"><strong>Total Precipitation: </strong>@forecastDay.Day?.Totalprecip_mm mm</p>
+                                    <p class="card-text"><strong>Chance of Rain: </strong>@forecastDay.Day?.Daily_chance_of_rain%</p>
+                                    <p class="card-text"><strong>Will it rain? </strong>@(forecastDay.Day?.Daily_will_it_rain != 0 ? "Yes" : "No")</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 }
             </div>
         </div>
-    }
+}
     else if (!string.IsNullOrWhiteSpace(errorMessage))
     {
         <div class="alert alert-danger mt-3">
