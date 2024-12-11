@@ -1,7 +1,67 @@
 ﻿@page "/"
+@inject WeatherService WeatherService
 
-<PageTitle>Home</PageTitle>
+<h3 class="my-4 text-center fw-bold text-info">Weather for Popular Cities</h3>
 
-<h1>Hello, world!</h1>
+<div class="row">
+    @foreach (var weather in weatherData)
+    {
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img src="@GetCityImage(weather.Location.Name)" class="card-img-top city-image" alt="@weather.Location.Name" />
+                <div class="card-body">
+                    <h5 class="card-title text-center fw-bold">@weather.Location.Name</h5>
+                    <p class="card-text text-center">@weather.Current.temp_c &deg;C</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
 
-Welcome to your new app.
+<style>
+    .city-image {
+        width: 100%;
+        height: 250px; 
+        object-fit: cover;
+    }
+
+</style>
+
+@code {
+    private List<WeatherResponse> weatherData = new List<WeatherResponse>();
+
+    private Dictionary<string, string> cityImages = new Dictionary<string, string>
+    {
+        { "Dublin", "images/Dublin.jpg" },
+        { "New York", "images/new_york.jpg" },
+        { "London", "images/london.jpg" },
+        { "Tokyo", "images/tokyo.jpg" },
+        { "Paris", "images/paris.jpg" },
+        { "Sydney", "images/sydney.jpg" }
+    };
+
+    protected override async Task OnInitializedAsync()
+    {
+        var cities = new[] { "Dublin", "New York", "London", "Tokyo", "Paris", "Sydney" };
+
+        foreach (var city in cities)
+        {
+            var weather = await WeatherService.GetWeatherAsync(city);
+            if (weather != null)
+            {
+                weatherData.Add(weather);
+            }
+        }
+    }
+
+    private string GetCityImage(string cityName)
+    {
+        if (cityImages.ContainsKey(cityName))
+        {
+            return cityImages[cityName];
+        }
+
+        return "images/not-found.png";
+    }
+}
+

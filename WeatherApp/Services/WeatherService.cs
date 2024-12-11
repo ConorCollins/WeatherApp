@@ -18,7 +18,6 @@ public class WeatherService
     {
         try
         {
-            //construct the request URL
             var url = $"{BaseUrl}/current.json?key={ApiKey}&q={city}&aqi=no";
 
             //send request and get response as WeatherResponse object

@@ -2,13 +2,21 @@
 @using System.Linq
 @inject WeatherService WeatherService
 
-<h3 class="my-4 text-center">Weather Forecast</h3>
+<div class="container mt-5">
+    <div class="text-center my-4">
+    <h2 class="fw-bold text-info mb-3">Weather Forecast</h2>
+    <p class="text-muted">Enter a city name to get the 3 day forecast.</p>
+</div>
+<div class="input-group mb-4 mx-auto" style="max-width: 500px;">
+    <input 
+        @bind="city" 
+        class="form-control" 
+        placeholder="Enter city name" 
+        aria-label="City name" 
+    />
+    <button class="btn btn-outline-success" @onclick="GetForecast">Get Weather</button>
+</div>
 
-<div class="container">
-    <div class="input-group mb-3">
-        <input @bind="city" class="form-control" placeholder="Enter city name" />
-        <button class="btn btn-primary" @onclick="GetForecast">Get Weather</button>
-    </div>
 
     @if (forecastResponse?.Location != null && forecastResponse.Forecast?.Forecastday != null && forecastResponse.Forecast.Forecastday.Any())
 {
@@ -57,7 +65,7 @@
 
     private async Task GetForecast()
     {
-        errorMessage = null; // Reset any previous error
+        errorMessage = null;
         forecastResponse = await WeatherService.GetForecastAsync(city);
 
         if (forecastResponse == null)

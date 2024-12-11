@@ -2,13 +2,17 @@
 @inject WeatherService WeatherService
 
 <div class="container mt-5">
-    <h3 class="text-center mb-4">Current Weather</h3>
-
-    <div class="input-group mb-3">
-        <input @bind="city" class="form-control" placeholder="Enter city name" />
-        <button class="btn btn-primary" @onclick="GetWeather">Get Weather</button>
+    <div class="text-center my-4">
+        <h2 class="fw-bold text-info mb-3">Current Weather</h2>
+        <p class="text-muted">Enter a city name to get the latest weather information.</p>
     </div>
-    <br /><br />
+    <div class="input-group mb-4 mx-auto" style="max-width: 500px;">
+        <input @bind="city"
+               class="form-control"
+               placeholder="Enter city name"
+               aria-label="City name" />
+        <button class="btn btn-outline-success" @onclick="GetWeather">Get Weather</button>
+    </div>
 
     @if (weatherResponse != null)
     {
@@ -19,7 +23,6 @@
                         <strong>Weather in @weatherResponse.Location.Name, @weatherResponse.Location.Country</strong>
                     </h4>
                     <div class="text-center">
-                        <!-- Center-align all content -->
                         <p class="mb-2"><strong>Current Temperature:</strong> @weatherResponse.Current.temp_c °C</p>
                         <p class="mb-2"><strong>Feels Like:</strong> @weatherResponse.Current.feelslike_c °C</p>
                         <p class="mb-2"><strong>Humidity:</strong> @weatherResponse.Current.humidity %</p>
@@ -49,7 +52,7 @@
 
     private async Task GetWeather()
     {
-        errorMessage = null; // Reset any previous error
+        errorMessage = null;
         weatherResponse = await WeatherService.GetWeatherAsync(city);
 
         if (weatherResponse == null)

@@ -1,40 +1,52 @@
-﻿<div class="navbar navbar-dark bg-dark d-flex justify-content-center">
-    <div class="container-fluid">
-        <!-- Navbar Brand -->
-        <a class="navbar-brand " href="#">Weather Menu</a>
+﻿<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container d-flex justify-content-center">
+        <!-- Navbar Brand (Centered) -->
+        <a class="navbar-brand fw-bold text-center text-light" href="#">Weather Menu</a>
 
         <!-- Navbar Toggler (for mobile view) -->
-        <button title="Navigation menu" class="navbar-toggler" type="button" @onclick="ToggleNavMenu">
+        <button class="navbar-toggler position-absolute end-0 me-3"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
-</div>
+</nav>
+
+
 
 <!-- Navigation Menu -->
-<div class="@NavMenuCssClass nav-scrollable bg-dark">
-    <nav class="nav flex-column">
+<div class="@NavMenuCssClass nav-scrollable bg-dark vh-100">
+    <nav class="nav flex-column p-3">
         <!-- Home Link -->
-        <div class="nav-item">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill" aria-hidden="true"></span> Home
+        <div class="nav-item mb-3">
+            <NavLink class="nav-link d-flex align-items-center text-light" href="" Match="NavLinkMatch.All">
+                <span class="me-2" aria-hidden="true"></span>
+                <strong>Home</strong>
             </NavLink>
         </div>
 
         <!-- Forecast Link -->
-        <div class="nav-item">
-            <NavLink class="nav-link" href="forecast">
-                <span class="bi bi-calendar-week" aria-hidden="true"></span> 3 Day Forecast
+        <div class="nav-item mb-3">
+            <NavLink class="nav-link d-flex align-items-center text-light" href="forecast">
+                <span class="me-2" aria-hidden="true"></span>
+                <strong>3 Day Forecast</strong>
             </NavLink>
         </div>
 
         <!-- Weather Link -->
         <div class="nav-item">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-cloud-sun" aria-hidden="true"></span> Current Weather
+            <NavLink class="nav-link d-flex align-items-center text-light" href="weather">
+                <span class="me-2" aria-hidden="true"></span>
+                <strong>Current Weather</strong>
             </NavLink>
         </div>
     </nav>
 </div>
+
 
 @code {
     private bool collapseNavMenu = true;
