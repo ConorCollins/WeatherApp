@@ -8,9 +8,12 @@ wwwroot/
 *.sln.docstates
 vssession/
 .vs/
+test-results/
+node_modules/
 
 # ASP.NET
 appsettings.json
 appsettings.Development.json
 secret.json
+
 
